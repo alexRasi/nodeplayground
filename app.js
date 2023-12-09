@@ -34,7 +34,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/quiz", (req, res) => {
-  const test = { a: "rtrtrt", B: "test" };
+  const test = { a: "xcxcxc" };
   // Fetch quiz data from a database or file
   res.json(test);
 });
