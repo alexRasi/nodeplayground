@@ -1,0 +1,58 @@
+PM2:
+
+Why It's Good: PM2 is a popular process manager for Node.js applications. It offers features like automatic restarts, load balancing, and easy management of application logs.
+How to Use:
+Install PM2 globally:
+bash
+Copy code
+npm install pm2 -g
+Start your app with PM2:
+bash
+Copy code
+pm2 start app.js
+To ensure PM2 restarts with the server:
+bash
+Copy code
+pm2 startup
+pm2 save
+
+
+List Running Applications:
+
+To list all applications currently managed by PM2:
+bash
+Copy code
+pm2 list
+This command will show you a table of all processes with their status, CPU, and memory usage.
+Start an Application:
+
+To start a new process with PM2:
+bash
+Copy code
+pm2 start app.js
+Replace app.js with your main Node.js file.
+Restart a Process:
+
+To restart an application:
+bash
+Copy code
+pm2 restart app_name_or_id
+Replace app_name_or_id with the name or ID of the app as shown in the PM2 list.
+Stop a Process:
+
+To stop an application:
+bash
+Copy code
+pm2 stop app_name_or_id
+Reload/Graceful Restart:
+
+To gracefully restart all instances of an application without downtime:
+bash
+Copy code
+pm2 reload app_name_or_id
+Show Process Details:
+
+For detailed information about a specific process:
+bash
+Copy code
+pm2 show app_name_or_id
