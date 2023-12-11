@@ -7,6 +7,22 @@ const app = express();
 const cors = require("cors");
 const rateLimit = require('express-rate-limit');
 
+const allowedDomains = ['https://quiz-alexrasi94.vercel.app', 'https://*.alexrasi94.vercel.app'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedDomains.indexOf(origin) === -1) {
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 // Apply to all requests
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -18,7 +34,7 @@ app.use(limiter);
 
 
 // Enable CORS for all routes and origins
-app.use(cors());
+// app.use(cors());
 
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
