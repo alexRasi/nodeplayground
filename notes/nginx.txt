@@ -1,0 +1,58 @@
+sudo nano /etc/nginx/sites-available/app
+
+
+Install Nginx:
+
+bash
+Copy code
+sudo apt update
+sudo apt install nginx
+Configure Nginx for Your Subdomains:
+
+Create a new configuration file for each subdomain in /etc/nginx/sites-available/ and link it to /etc/nginx/sites-enabled/.
+For example, for app.rasidev.com:
+bash
+Copy code
+sudo nano /etc/nginx/sites-available/app
+Add the following configuration (modify for your domain and port):
+nginx
+Copy code
+server {
+    listen 80;
+    server_name app.rasidev.com;
+
+    location / {
+        proxy_pass http://localhost:3000; # Port where app is running
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+Create a symbolic link to enable the site:
+bash
+Copy code
+sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/
+Repeat for each subdomain, adjusting server_name and proxy_pass accordingly.
+Test Nginx Configuration:
+
+bash
+Copy code
+sudo nginx -t
+Restart Nginx:
+
+bash
+Copy code
+sudo systemctl restart nginx
+Firewall Setup:
+
+If you have a firewall, allow HTTP traffic:
+bash
+Copy code
+sudo ufw allow 'Nginx Full'
+After completing these steps, your subdomains should be routed to the appropriate Node.js applications running on different ports managed by PM2, with Nginx handling incoming web traffic.
+
+
+
+

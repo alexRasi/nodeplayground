@@ -1,0 +1,24 @@
+sudo apt update
+sudo apt install certbot python3-certbot-nginx
+Obtain the SSL Certificate:
+Run Certbot with the Nginx plugin:
+
+
+sudo certbot --nginx
+Follow the Prompts:
+Certbot will ask for information and then automatically update your Nginx configuration to use the new SSL certificate.
+
+Test Automatic Renewal:
+Let's Encrypt certificates are valid for 90 days, but Certbot sets up automatic renewal. Test the renewal process with:
+
+sudo certbot renew --dry-run
+Reload Nginx:
+To apply the changes, reload Nginx:
+
+
+If Certbot didn't prompt you to secure the root domain (rasidev.com) and the www subdomain (www.rasidev.com), it may be because the DNS settings for those domains hadn't propagated when you ran Certbot, or they weren't pointing to the server where you ran Certbot.
+
+To secure your root domain and www subdomain, you can run Certbot again and specify the domains:
+
+sudo certbot --nginx -d rasidev.com -d www.rasidev.com
+This will attempt to obtain certificates for both the root domain and the www subdomain. Certbot will then modify the Nginx configuration files to use the new certificates for SSL/TLS. Make sure the DNS records for both rasidev.com and www.rasidev.com are correctly pointing to your server's IP address before running the command.
