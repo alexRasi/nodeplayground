@@ -8,13 +8,10 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
-
-const allowedDomains = ['https://quiz-alexrasi94.vercel.app', 'https://*.alexrasi94.vercel.app'];
-
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('alexrasi94.vercel.app')) {
+    if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('alexrasi94.vercel.app') || origin.endsWith('rasidev.com')) {
       console.log('ORIGIN IS ALLOWED: ' + origin);
       return callback(null, true);
     } else {
