@@ -7,20 +7,11 @@ const app = express();
 const cors = require("cors");
 const rateLimit = require('express-rate-limit');
 
-const allowedDomains = ['https://quiz-alexrasi94.vercel.app', 'https://*.alexrasi94.vercel.app'];
+const corsOptions = {
+  origin: 'https://quiz-alexrasi94.vercel.app'
+};
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('.alexrasi94.vercel.app')) {
-      return callback(null, true);
-    } else {
-      var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-  }
-}));
+app.use(cors(corsOptions));
 
 // Apply to all requests
 const limiter = rateLimit({
