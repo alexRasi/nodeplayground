@@ -14,7 +14,7 @@ const allowedDomains = ['https://quiz-alexrasi94.vercel.app', 'https://*.alexras
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('.alexrasi94.vercel.app')) {
+    if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('alexrasi94.vercel.app')) {
       return callback(null, true);
     } else {
       var msg = 'The CORS policy for this site does not ' +
