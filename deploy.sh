@@ -14,6 +14,6 @@ git pull
 npm install
 
 # Restart the application using PM2 and the name of the app
-pm2 restart node
+pm2 restart app
 
 
