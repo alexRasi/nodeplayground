@@ -87,6 +87,11 @@ app.get("/quiz", (req, res) => {
       correctAnswer: "7",
     },
   ];
+
+  const questionsResponse = {
+    questions: questions,
+  };
+  
   // Fetch quiz data from a database or file
-  res.json(questions);
+  res.json(questionsResponse);
 });
