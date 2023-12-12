@@ -55,4 +55,7 @@ After completing these steps, your subdomains should be routed to the appropriat
 
 
 
+DONT FORGET ADD SYMBOLIC LINK
+ sudo ln -s /etc/nginx/sites-available/api.pangreeks api.pangreeks
 
+ inside the sites enabled folder!! 

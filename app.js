@@ -4,23 +4,23 @@
 // init project
 const express = require("express");
 const cors = require("cors");
-const rateLimit = require('express-rate-limit');
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('alexrasi94.vercel.app') || origin.endsWith('rasidev.com')) {
-      console.log('ORIGIN IS ALLOWED: ' + origin);
-      return callback(null, true);
-    } else {
-      var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-  }
-}));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin) return callback(null, true);
+//     if (origin === 'https://quiz-alexrasi94.vercel.app' || origin.endsWith('alexrasi94.vercel.app') || origin.endsWith('rasidev.com')) {
+//       console.log('ORIGIN IS ALLOWED: ' + origin);
+//       return callback(null, true);
+//     } else {
+//       var msg = 'The CORS policy for this site does not ' +
+//                 'allow access from the specified Origin.';
+//       return callback(new Error(msg), false);
+//     }
+//   }
+// }));
 
 // const corsOptions = {
 //   origin: 'https://quiz-alexrasi94.vercel.app'
@@ -32,14 +32,13 @@ app.use(cors({
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  message: 'Too many requests from this IP, please try again after 15 minutes'
+  message: "Too many requests from this IP, please try again after 15 minutes",
 });
 
 app.use(limiter);
 
-
 // Enable CORS for all routes and origins
-// app.use(cors());
+app.use(cors());
 
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -66,7 +65,28 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/quiz", (req, res) => {
-  const test = { a: "xcxcxc" };
+  const questions = [
+    {
+      question: "What is the capital of France?",
+      answers: ["Paris", "Berlin", "Rome", "London"],
+      correctAnswer: "Paris",
+    },
+    {
+      question: "Who is CEO of Tesla?",
+      answers: ["Jeff Bezos", "Elon Musk", "Bill Gates", "Tony Stark"],
+      correctAnswer: "Elon Musk",
+    },
+    {
+      question: "The iPhone was created by which company?",
+      answers: ["Apple", "Intel", "Amazon", "Microsoft"],
+      correctAnswer: "Apple",
+    },
+    {
+      question: "How many Harry Potter books are there?",
+      answers: ["1", "4", "6", "7"],
+      correctAnswer: "7",
+    },
+  ];
   // Fetch quiz data from a database or file
-  res.json(test);
+  res.json(questions);
 });

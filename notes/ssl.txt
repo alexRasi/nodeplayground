@@ -22,3 +22,6 @@ To secure your root domain and www subdomain, you can run Certbot again and spec
 
 sudo certbot --nginx -d rasidev.com -d www.rasidev.com
 This will attempt to obtain certificates for both the root domain and the www subdomain. Certbot will then modify the Nginx configuration files to use the new certificates for SSL/TLS. Make sure the DNS records for both rasidev.com and www.rasidev.com are correctly pointing to your server's IP address before running the command.
+
+
+sudo certbot --nginx -d api.pangreeks.rasidev.com
