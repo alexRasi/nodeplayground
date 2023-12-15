@@ -80,3 +80,57 @@ app.get("/quiz", (req, res) => {
   // Fetch quiz data from a database or file
   res.json(questionsResponse);
 });
+
+// MongoDB connection setup
+const dbURL = "mongodb://localhost:27017"; // Update with your MongoDB server URL
+const dbName = "quizApp"; // Update with your database name
+const client = new MongoClient(dbURL);
+
+// Connect to MongoDB
+client.connect()
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
+
+// ...
+
+// Endpoint to save high scores
+app.post("/highscores", async (req, res) => {
+  try {
+    const db = client.db(dbName);
+    const highscoresCollection = db.collection("highscores");
+
+    // Parse the high score data from the request body
+    const { username, score } = req.body;
+
+    // Insert the high score into the collection
+    const result = await highscoresCollection.insertOne({ username, score });
+
+    // Return success response
+    res.status(201).json({ message: "High score saved successfully", insertedId: result.insertedId });
+  } catch (error) {
+    console.error("Error saving high score:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Endpoint to retrieve high scores
+app.get("/highscores", async (req, res) => {
+  try {
+    const db = client.db(dbName);
+    const highscoresCollection = db.collection("highscores");
+
+    // Retrieve high scores (sorted by score in descending order)
+    const highscores = await highscoresCollection.find().sort({ score: -1 }).toArray();
+
+    res.status(200).json(highscores);
+  } catch (error) {
+    console.error("Error retrieving high scores:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
